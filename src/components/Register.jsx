@@ -2,9 +2,10 @@ import { Button, Stack, TextField, Box } from "@mui/material";
 import { setField, setTouched } from "../store/registrationFormSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { createAccount } from "../api";
-import { redirect } from "react-router";
+import { useNavigate } from "react-router";
 
 export const Register = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     username,
@@ -26,7 +27,7 @@ export const Register = () => {
     }
     try {
       await createAccount({ username, email, password });
-      return redirect("/login");
+      navigate("/login");
     } catch (err) {
       console.log(err);
     }

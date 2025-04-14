@@ -1,25 +1,42 @@
 import { Box, Link as MuiLink } from "@mui/material";
 import { Link as RouterLink } from "react-router";
-import Lottie from "lottie-react";
-import shimmer from "../assets/shimmer.json";
+import { useEffect } from "react";
+import Granim from "granim";
 export const Home = () => {
+  useEffect(() => {
+    new Granim({
+      element: "#background",
+      direction: "diagonal",
+      isPausedWhenNotInView: true,
+      states: {
+        "default-state": {
+          gradients: [
+            ["#16161a", "#7f5af0"],
+            ["#7f5af0", "#2cb67d"],
+            ["#16161a", "#7f5af0"],
+          ],
+        },
+      },
+    });
+  }, []);
   return (
-    <Box>
-      {/* <Lottie animationData={shimmer} id="home_animation" /> */}
-      <h1>Home</h1>
-      <p>Welcome to the Portal.</p>
-      <p>
-        To get started, sign up{" "}
-        <MuiLink component={RouterLink} to="/signup">
-          here.
-        </MuiLink>
-      </p>
-      <p>
-        Already have an account?{" "}
-        <MuiLink component={RouterLink} to="/login">
-          Login
-        </MuiLink>
-      </p>
+    <Box id="home">
+      <Box id="welcome">
+        <h1>Welcome to the Portal</h1>
+        <p>
+          To get started, lets get you signed up{" "}
+          <MuiLink component={RouterLink} to="/signup" color="inherit">
+            here.
+          </MuiLink>
+        </p>
+        <p>
+          Already have an account?{" "}
+          <MuiLink component={RouterLink} to="/login" color="inherit">
+            Login
+          </MuiLink>
+        </p>
+      </Box>
+      <canvas id="background"></canvas>
     </Box>
   );
 };

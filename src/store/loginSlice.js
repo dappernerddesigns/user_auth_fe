@@ -3,6 +3,7 @@ const initialState = {
   email: "",
   password: "",
   touched: { email: false, password: false },
+  error: false,
 };
 
 export const loginSlice = createSlice({
@@ -23,8 +24,12 @@ export const loginSlice = createSlice({
       state.touched[action.payload] = true;
     },
     resetLoginForm: () => initialState,
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setField, setTouched, resetLoginForm } = loginSlice.actions;
+export const { setField, setTouched, resetLoginForm, setError } =
+  loginSlice.actions;
 export default loginSlice.reducer;

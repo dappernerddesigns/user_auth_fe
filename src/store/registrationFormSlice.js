@@ -13,6 +13,7 @@ const initialState = {
     password: false,
     confirmPassword: false,
   },
+  error: false,
 };
 
 const validEmailRegex =
@@ -43,8 +44,12 @@ export const formSlice = createSlice({
       state.touched[action.payload] = true;
     },
     resetRegisterForm: () => initialState,
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setField, setTouched, resetRegisterForm } = formSlice.actions;
+export const { setField, setTouched, resetRegisterForm, setError } =
+  formSlice.actions;
 export default formSlice.reducer;

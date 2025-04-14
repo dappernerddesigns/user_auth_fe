@@ -1,17 +1,17 @@
-import { Box, Link as MuiLink } from "@mui/material";
+import { Box, Link as MuiLink, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router";
 import { LoginForm } from "../components/LogIn";
 export const Login = () => {
   return (
     <Box>
-      <h1>Login</h1>
+      <Typography variant="h2">Login</Typography>
       <LoginForm />
-      <p>
+      <Typography variant="caption">
         Don't have an account yet? Register{" "}
         <MuiLink component={RouterLink} to="/signup">
           here
         </MuiLink>
-      </p>
+      </Typography>
     </Box>
   );
 };

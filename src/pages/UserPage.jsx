@@ -7,8 +7,7 @@ export const UserPage = () => {
   const { username, email, user_id, loading, error } = useSelector(
     (state) => state.user
   );
-  const user = useSelector((state) => state.user);
-  console.log("🧠 Full user state:", user);
+
   const loggedInUser = useSelector((state) => state.loginForm.email);
 
   useEffect(() => {

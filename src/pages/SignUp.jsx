@@ -1,12 +1,12 @@
-import { Box, Link as MuiLink } from "@mui/material";
+import { Box, Link as MuiLink, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router";
 
 import { Register } from "../components/Register";
 
 export const SignUp = () => {
   return (
-    <Box>
-      <h1>Sign Up Here</h1>
+    <Box id="sign_up">
+      <Typography variant="h2">Register</Typography>
       <Register />
       <p>
         Have an account already? Login{" "}

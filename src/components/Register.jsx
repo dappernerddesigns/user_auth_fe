@@ -1,10 +1,20 @@
-import { Button, Stack, TextField, Box } from "@mui/material";
-import { setField, setTouched } from "../store/registrationFormSlice";
+import {
+  Button,
+  Stack,
+  TextField,
+  Box,
+  Typography,
+  Link as MuiLink,
+} from "@mui/material";
+import { setField, setTouched, setError } from "../store/registrationFormSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { createAccount } from "../api";
-import { useNavigate } from "react-router";
-
+import { useNavigate, Link as RouterLink } from "react-router";
+import Lottie from "lottie-react";
+import loadingDots from "../assets/loading.json";
+import { useState } from "react";
 export const Register = () => {
+  const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -16,24 +26,45 @@ export const Register = () => {
     passwordValid,
     passwordsMatch,
     touched,
+    error,
   } = useSelector((state) => state.signupForm);
+
+  // form validation
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!emailValid || !passwordValid || !passwordsMatch) {
+    if (!emailValid || !passwordValid || !passwordsMatch || username === "") {
       dispatch(setTouched("email"));
       dispatch(setTouched("password"));
       dispatch(setTouched("confirmPassword"));
+      dispatch(setTouched("username"));
       return;
     }
     try {
+      setIsloading(true);
       await createAccount({ username, email, password });
       navigate("/login");
     } catch (err) {
       console.log(err);
+      dispatch(setError(true));
+      setIsloading(false);
     }
   };
   return (
-    <Box component="form" onSubmit={handleSubmit} method="post">
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      method="post"
+      id="sign_up_form"
+    >
+      {error ? (
+        <Typography variant="caption">
+          A user already exists in the database,{" "}
+          <MuiLink component={RouterLink} to="/login">
+            Login
+          </MuiLink>{" "}
+          instead
+        </Typography>
+      ) : null}
       <Stack width="80%" m="auto">
         <TextField
           variant="standard"
@@ -41,12 +72,17 @@ export const Register = () => {
           label="Username*"
           value={username}
           onChange={(e) => {
+            dispatch(setError(false));
             dispatch(setField({ field: "username", value: e.target.value }));
           }}
+          onBlur={() => dispatch(setTouched("username"))}
+          error={touched.username && username === ""}
+          helperText={
+            touched.username && username === "" ? "Please enter username." : " "
+          }
         />
         <TextField
           variant="standard"
-          required
           id="emailInput"
           label="email"
           value={email}
@@ -59,14 +95,13 @@ export const Register = () => {
             touched.email && !emailValid ? "Please enter a valid email." : " "
           }
         />
-        <p>
+        <Typography variant="caption">
           Passwords must be a minimum of 8 digits and contain at least one
           uppercase letter, one lowercase letter, one digit and one special
           character
-        </p>
+        </Typography>
         <TextField
           variant="standard"
-          required
           id="password"
           label="Password"
           type="password"
@@ -86,7 +121,6 @@ export const Register = () => {
         />
         <TextField
           variant="standard"
-          required
           label="Re-enter password"
           type="password"
           value={confirmPassword}
@@ -105,7 +139,23 @@ export const Register = () => {
               : ""
           }
         />
-        <Button type="submit">Sign Up</Button>
+        {isLoading ? (
+          <>
+            <Lottie animationData={loadingDots} id="loading_dots" />
+            <Typography variant="caption">
+              Adding you to the database, please wait
+            </Typography>
+          </>
+        ) : (
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={error}
+          >
+            Sign Up
+          </Button>
+        )}
       </Stack>
     </Box>
   );

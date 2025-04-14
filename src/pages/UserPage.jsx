@@ -15,12 +15,7 @@ export const UserPage = () => {
       dispatch(fetchUser(loggedInUser));
     }
   }, [dispatch, loggedInUser]);
-  useEffect(() => {
-    if (username) {
-      console.log("✅ Username in component:", username);
-    }
-  }, [username]);
-  console.log(username);
+
   return (
     <Box>
       <h1>User page</h1>

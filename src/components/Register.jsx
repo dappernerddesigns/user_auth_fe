@@ -5,6 +5,8 @@ import {
   Box,
   Typography,
   Link as MuiLink,
+  List,
+  ListItem,
 } from "@mui/material";
 import { setField, setTouched, setError } from "../store/registrationFormSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,7 +67,7 @@ export const Register = () => {
           instead
         </Typography>
       ) : null}
-      <Stack width="80%" m="auto">
+      <Stack sx={{ m: "auto", width: "80%" }}>
         <TextField
           variant="standard"
           id="outlined-required"
@@ -84,7 +86,7 @@ export const Register = () => {
         <TextField
           variant="standard"
           id="emailInput"
-          label="email"
+          label="Email*"
           value={email}
           onChange={(e) =>
             dispatch(setField({ field: "email", value: e.target.value }))
@@ -95,15 +97,10 @@ export const Register = () => {
             touched.email && !emailValid ? "Please enter a valid email." : " "
           }
         />
-        <Typography variant="caption">
-          Passwords must be a minimum of 8 digits and contain at least one
-          uppercase letter, one lowercase letter, one digit and one special
-          character
-        </Typography>
         <TextField
           variant="standard"
           id="password"
-          label="Password"
+          label="Password*"
           type="password"
           value={password}
           onChange={(e) => {
@@ -121,7 +118,7 @@ export const Register = () => {
         />
         <TextField
           variant="standard"
-          label="Re-enter password"
+          label="Re-enter password*"
           type="password"
           value={confirmPassword}
           onChange={(e) => {
@@ -141,21 +138,53 @@ export const Register = () => {
         />
         {isLoading ? (
           <>
-            <Lottie animationData={loadingDots} id="loading_dots" />
+            <Lottie animationData={loadingDots} className="loading_dots" />
             <Typography variant="caption">
               Adding you to the database, please wait
             </Typography>
           </>
         ) : (
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={error}
-          >
-            Sign Up
-          </Button>
+          <>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={error}
+              sx={{ mt: 2, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Typography variant="caption">* Required fields</Typography>
+          </>
         )}
+        <Typography variant="caption">Passwords must:</Typography>
+        <List>
+          <ListItem>
+            <Typography variant="caption">
+              - Be a minimum of 8 digits
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="caption">
+              - Contain at least one uppercase letter
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="caption">
+              - Contain at least one lowercase letter
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="caption">
+              - Contain at least one digit
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="caption">
+              - Contain at least one special character
+            </Typography>
+          </ListItem>
+        </List>
       </Stack>
     </Box>
   );

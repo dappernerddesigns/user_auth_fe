@@ -6,14 +6,16 @@ import { Register } from "../components/Register";
 export const SignUp = () => {
   return (
     <Box id="sign_up">
-      <Typography variant="h2">Register</Typography>
+      <Typography variant="h2" sx={{ mb: 4 }}>
+        Register
+      </Typography>
       <Register />
-      <p>
+      <Typography variant="subtitle1" sx={{ mt: 4 }}>
         Have an account already? Login{" "}
         <MuiLink component={RouterLink} to="/login">
           here
         </MuiLink>
-      </p>
+      </Typography>
     </Box>
   );
 };

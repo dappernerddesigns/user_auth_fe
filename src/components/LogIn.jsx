@@ -1,6 +1,11 @@
 import { Button, Stack, TextField, Box, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { setField, setTouched, setError } from "../store/loginSlice";
+import {
+  setField,
+  setTouched,
+  setError,
+  resetLoginForm,
+} from "../store/loginSlice";
 import { resetRegisterForm } from "../store/registrationFormSlice";
 import { loginUser } from "../api";
 import { useNavigate } from "react-router";
@@ -13,19 +18,33 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const newUserEmail = useSelector((state) => state.signupForm.email);
-  const { email, password, error } = useSelector((state) => state.loginForm);
-
+  const { email, password, error, touched } = useSelector(
+    (state) => state.loginForm
+  );
+  if (newUserEmail && !email) {
+    dispatch(setField({ field: "email", value: newUserEmail }));
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if ((email === "" && !newUserEmail) || password === "") {
+      dispatch(setTouched("email"));
+      dispatch(setTouched("password"));
+      dispatch(setError(true));
+    }
     try {
       setIsLoading(true);
-      await loginUser({
-        email: newUserEmail ? newUserEmail : email,
+      const token = await loginUser({
+        email: email,
         plainTextPassword: password,
       });
-      dispatch(resetRegisterForm());
-      navigate("/profile");
+      dispatch(setField({ field: "password", value: "" }));
+      if (token) {
+        navigate("/profile");
+        dispatch(resetRegisterForm());
+      }
     } catch (err) {
+      console.log(err);
       dispatch(setError(true));
     }
   };
@@ -34,9 +53,8 @@ export const LoginForm = () => {
       <Stack sx={{ m: "auto", width: "80%" }}>
         <TextField
           variant="standard"
-          required
           id="emailInput"
-          label="Email"
+          label="Email*"
           value={newUserEmail ? newUserEmail : email}
           onChange={(e) => {
             if (loading) setIsLoading(!loading);
@@ -48,9 +66,8 @@ export const LoginForm = () => {
         />
         <TextField
           variant="standard"
-          required
           id="password"
-          label="Password"
+          label="Password*"
           type="password"
           value={password}
           onChange={(e) => {

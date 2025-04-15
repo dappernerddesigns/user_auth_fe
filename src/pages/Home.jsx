@@ -5,8 +5,11 @@ export const Home = () => {
   return (
     <Box id="home">
       <Box id="welcome">
-        <Typography variant="h2">Welcome to Portal</Typography>
-        <img src={portal} id="portal" />
+        <Typography variant="h2">
+          Welcome to Portal
+          <img src={portal} id="portal" />
+        </Typography>
+
         <Typography variant="body1">
           To get started, lets get you signed up{" "}
           <MuiLink component={RouterLink} to="/signup">

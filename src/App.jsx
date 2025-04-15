@@ -8,6 +8,7 @@ import { CssBaseline } from "@mui/material";
 // import { useEffect } from "react";
 // import Granim from "granim";
 import { Navigation } from "./components/Navigation";
+
 function App() {
   // useEffect(() => {
   //   new Granim({

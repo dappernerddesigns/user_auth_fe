@@ -4,15 +4,10 @@ const usersApi = axios.create({
   baseURL: "https://user-auth-k2wn.onrender.com/api",
 });
 
-usersApi.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
 export const createAccount = async (userdetails) => {
-  await usersApi.post("/users/registration", userdetails);
+  const { data } = await usersApi.post("/users/registration", userdetails);
+  console.log(data);
+  return data;
 };
 
 export const loginUser = async (userdetails) => {
@@ -20,12 +15,15 @@ export const loginUser = async (userdetails) => {
     data: { token },
   } = await usersApi.post("/users/login", userdetails);
   localStorage.setItem("portal_token", token);
+  return token;
 };
 
 export const getUserDetails = async (email) => {
+  console.log("details requested for ", email);
   const token = localStorage.getItem("portal_token");
   const { data } = await usersApi.get(`/users/${email}`, {
     headers: { authorisation: `Bearer ${token}` },
   });
+  console.log("got user", { data });
   return data;
 };

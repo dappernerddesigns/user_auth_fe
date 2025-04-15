@@ -15,6 +15,7 @@ import { useNavigate, Link as RouterLink } from "react-router";
 import Lottie from "lottie-react";
 import loadingDots from "../assets/loading.json";
 import { useState } from "react";
+
 export const Register = () => {
   const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
@@ -43,10 +44,11 @@ export const Register = () => {
     }
     try {
       setIsloading(true);
-      await createAccount({ username, email, password });
-      navigate("/login");
+      const resourceExists = await createAccount({ username, email, password });
+      if (resourceExists) {
+        navigate("/login");
+      }
     } catch (err) {
-      console.log(err);
       dispatch(setError(true));
       setIsloading(false);
     }

@@ -37,7 +37,8 @@ body {
   z-index: -1;
 }
 #portal {
-  width: 50px;
+  height: 60px;
+  margin-left: 12px;
 }
 #portal-nav {
   height: 60px;

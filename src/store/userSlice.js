@@ -20,7 +20,7 @@ const userSlice = createSlice({
     username: "",
     email: "",
     user_id: "",
-    loading: false,
+    loading: true,
     error: null,
   },
   reducers: {},

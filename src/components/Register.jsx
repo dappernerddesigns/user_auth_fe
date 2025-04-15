@@ -8,8 +8,13 @@ import {
   List,
   ListItem,
 } from "@mui/material";
-import { setField, setTouched, setError } from "../store/registrationFormSlice";
+import {
+  setField,
+  setTouched,
+  setError,
+} from "../store/features/registrationFormSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { resetLoginForm } from "../store/features/loginSlice";
 import { createAccount } from "../api";
 import { useNavigate, Link as RouterLink } from "react-router";
 import Lottie from "lottie-react";
@@ -20,6 +25,7 @@ export const Register = () => {
   const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const {
     username,
     email,
@@ -44,6 +50,7 @@ export const Register = () => {
     }
     try {
       setIsloading(true);
+      dispatch(resetLoginForm());
       const resourceExists = await createAccount({ username, email, password });
       if (resourceExists) {
         navigate("/login");
@@ -90,9 +97,10 @@ export const Register = () => {
           id="emailInput"
           label="Email*"
           value={email}
-          onChange={(e) =>
-            dispatch(setField({ field: "email", value: e.target.value }))
-          }
+          onChange={(e) => {
+            dispatch(setError(false));
+            dispatch(setField({ field: "email", value: e.target.value }));
+          }}
           onBlur={() => dispatch(setTouched("email"))}
           error={touched.email && !emailValid}
           helperText={
@@ -106,6 +114,7 @@ export const Register = () => {
           type="password"
           value={password}
           onChange={(e) => {
+            dispatch(setError(false));
             dispatch(setField({ field: "password", value: e.target.value }));
           }}
           onBlur={() => {
@@ -124,6 +133,7 @@ export const Register = () => {
           type="password"
           value={confirmPassword}
           onChange={(e) => {
+            dispatch(setError(false));
             dispatch(
               setField({ field: "confirmPassword", value: e.target.value })
             );

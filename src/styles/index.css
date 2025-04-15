@@ -44,26 +44,7 @@ body {
   height: 60px;
   margin: 10px;
 }
-#nav-buttons {
-  margin: 20px 10px;
-}
-#welcome {
-  width: 400px;
-  height: 375px;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  border-radius: 10px;
-  backdrop-filter: blur(5px);
-  background-color: rgba(0, 191, 255, 0.075);
-  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
-  border: 2px rgba(255, 255, 255, 0.4) solid;
-  border-bottom: 2px rgba(40, 40, 40, 0.35) solid;
-  border-right: 2px rgba(40, 40, 40, 0.35) solid;
-}
+
 #sign_up,
 #login {
   padding-top: 30px;
@@ -71,7 +52,9 @@ body {
   height: 100vh;
 }
 #sign_up_form,
-#login_form {
+#login_form,
+#welcome,
+#user_details {
   margin: auto;
   width: 80%;
   padding: 16px;
@@ -89,18 +72,26 @@ body {
   border-bottom: 2px rgba(40, 40, 40, 0.35) solid;
   border-right: 2px rgba(40, 40, 40, 0.35) solid;
 }
+#welcome {
+  width: 400px;
+  height: 375px;
+}
+#user_details {
+  height: 200px;
+  text-align: left;
+  justify-content: center;
+  align-items: flex-start;
+}
 .loading_dots {
   width: 80px;
   height: 60px;
   margin: auto;
 }
 @media only screen and (min-width: 600px) {
-  #sign_up_form {
+  #sign_up_form,
+  #login_form,
+  #welcome,
+  #user_details {
     width: 400px;
   }
-  #login_form {
-    width: 400px;
-  }
-}
-@media only screen and (min-width: 1000px) {
 }

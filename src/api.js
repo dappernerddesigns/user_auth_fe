@@ -19,11 +19,17 @@ export const loginUser = async (userdetails) => {
 };
 
 export const getUserDetails = async (email) => {
-  console.log("details requested for ", email);
   const token = localStorage.getItem("portal_token");
   const { data } = await usersApi.get(`/users/${email}`, {
-    headers: { authorisation: `Bearer ${token}` },
+    headers: { authorization: `Bearer ${token}` },
   });
-  console.log("got user", { data });
+
   return data;
+};
+
+export const deleteAccount = async (id) => {
+  const token = localStorage.getItem("portal_token");
+  await usersApi.delete(`/users/${id}`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
 };

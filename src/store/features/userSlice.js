@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUserDetails } from "../api";
+import { getUserDetails } from "../../api";
 
 export const fetchUser = createAsyncThunk(
   "user/fetchUser",
@@ -13,17 +13,19 @@ export const fetchUser = createAsyncThunk(
     }
   }
 );
-
+const initialState = {
+  username: "",
+  email: "",
+  user_id: "",
+  loading: true,
+  error: null,
+};
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    username: "",
-    email: "",
-    user_id: "",
-    loading: true,
-    error: null,
+  initialState,
+  reducers: {
+    clearUser: () => initialState,
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchUser.pending, (state) => {
@@ -42,5 +44,5 @@ const userSlice = createSlice({
       });
   },
 });
-
+export const { clearUser } = userSlice.actions;
 export default userSlice.reducer;

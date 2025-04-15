@@ -1,12 +1,8 @@
 import { Button, Stack, TextField, Box, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setField,
-  setTouched,
-  setError,
-  resetLoginForm,
-} from "../store/loginSlice";
-import { resetRegisterForm } from "../store/registrationFormSlice";
+import { setField, setTouched, setError } from "../store/features/loginSlice";
+import { resetRegisterForm } from "../store/features/registrationFormSlice";
+
 import { loginUser } from "../api";
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -18,9 +14,8 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const newUserEmail = useSelector((state) => state.signupForm.email);
-  const { email, password, error, touched } = useSelector(
-    (state) => state.loginForm
-  );
+  const { email, password, error } = useSelector((state) => state.loginForm);
+
   if (newUserEmail && !email) {
     dispatch(setField({ field: "email", value: newUserEmail }));
   }
@@ -44,7 +39,6 @@ export const LoginForm = () => {
         dispatch(resetRegisterForm());
       }
     } catch (err) {
-      console.log(err);
       dispatch(setError(true));
     }
   };

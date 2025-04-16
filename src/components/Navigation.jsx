@@ -21,8 +21,9 @@ import { AccountCircle, Logout } from "@mui/icons-material";
 export const Navigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { username, error } = useSelector((state) => state.user);
   const [anchorEl, setAnchorEl] = useState(null);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,13 +39,13 @@ export const Navigation = () => {
   const handleProfile = () => {
     navigate("/profile");
   };
-  const { username, error } = useSelector((state) => state.user);
   return (
     <Stack
       id="nav"
       direction="row"
       justifyContent="space-between"
       alignItems="center"
+      sx={{ width: "100%", borderBottom: "2px solid #7f5af0", height: "80px" }}
     >
       <MuiLink component={RouterLink} to="/" aria-label="Go back to home">
         <img

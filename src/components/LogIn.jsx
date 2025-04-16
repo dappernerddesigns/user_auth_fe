@@ -13,6 +13,7 @@ export const LoginForm = () => {
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const newUserEmail = useSelector((state) => state.signupForm.email);
   const { email, password, error } = useSelector((state) => state.loginForm);
 

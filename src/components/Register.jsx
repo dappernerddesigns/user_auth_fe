@@ -38,7 +38,6 @@ export const Register = () => {
     error,
   } = useSelector((state) => state.signupForm);
 
-  // form validation
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!emailValid || !passwordValid || !passwordsMatch || username === "") {
@@ -60,6 +59,7 @@ export const Register = () => {
       setIsloading(false);
     }
   };
+
   return (
     <Box
       component="form"

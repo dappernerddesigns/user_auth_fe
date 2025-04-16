@@ -34,7 +34,11 @@ export const UpdateUser = ({ username, email, user_id }) => {
     navigate("/");
   };
   return (
-    <Box id="user_details">
+    <Box
+      id="user_details"
+      justifyContent="center"
+      sx={{ height: "200px", textAlign: "left" }}
+    >
       <Typography>Username: {username}</Typography>
       <Typography>Email: {email}</Typography>
       <Button

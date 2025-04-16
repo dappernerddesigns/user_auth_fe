@@ -6,7 +6,7 @@ export const Home = () => {
   const { username } = useSelector((state) => state.user);
   return (
     <Box id="home">
-      <Box id="welcome">
+      <Box id="welcome" sx={{ width: "400px", height: "375px" }}>
         <Typography variant="h2">
           Welcome to Portal
           <img src={portal} id="portal" alt="Portal logo" />

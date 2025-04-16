@@ -2,7 +2,7 @@
 
 <img src='https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E'> <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" /> <img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" /> <img src='https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white'> <img src='https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white'> <img src='https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white'>
 
-A React application built to consume the [User Auth API](https://github.com/dappernerddesigns/user_auth). With Axios for http requests and Redux for global statemanagment.
+A React application built to consume the [User Auth API](https://github.com/dappernerddesigns/user_auth). With Axios for http requests and Redux for global state management.
 
 Users can register for an account, login, logout and permenantly delete their user data.
 

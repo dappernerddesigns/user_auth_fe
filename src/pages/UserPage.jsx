@@ -14,11 +14,12 @@ export const UserPage = () => {
   const { username, loading, error, email, user_id } = useSelector(
     (state) => state.user
   );
-  console.log(user_id);
+
   const token = localStorage.getItem("portal_token");
 
   useEffect(() => {
-    if (!token) {
+    dispatch(resetLoginForm());
+    if (!token || user_id === "") {
       navigate("/");
     } else {
       try {

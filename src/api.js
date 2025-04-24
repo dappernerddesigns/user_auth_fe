@@ -1,13 +1,11 @@
 import axios from "axios";
 
 const usersApi = axios.create({
-  baseURL: "https://user-auth-k2wn.onrender.com/api",
+  baseURL: import.meta.env.VITE_BASE_URL,
 });
 
 export const createAccount = async (userdetails) => {
-  const { data } = await usersApi.post("/users/registration", userdetails);
-  console.log(data);
-  return data;
+  await usersApi.post("/users/registration", userdetails);
 };
 
 export const loginUser = async (userdetails) => {

@@ -51,10 +51,9 @@ export const Register = () => {
     try {
       setIsloading(true);
 
-      const resourceExists = await createAccount({ username, email, password });
-      if (resourceExists) {
-        navigate("/login");
-      }
+      await createAccount({ username, email, password });
+
+      navigate("/login");
     } catch (err) {
       dispatch(setError(true));
       setIsloading(false);

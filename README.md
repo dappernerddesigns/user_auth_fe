@@ -26,7 +26,15 @@ cd user_auth
 npm i
 ```
 
-2 - Run the development server
+2 - Define the base url variable
+If this application is being run locally in conjunction with the supported backend [User Auth API](https://github.com/dappernerddesigns/user_auth) then the server address will be different than the hosted database.
+Create a file with the name .env and define the following variable:
+
+```
+VITE_BASE_URL=http://localhost:9090/api
+```
+
+3 - Run the development server
 
 ```
 npm run dev

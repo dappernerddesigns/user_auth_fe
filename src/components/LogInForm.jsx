@@ -36,6 +36,7 @@ export const LoginForm = () => {
       dispatch(setTouched("email"));
       dispatch(setTouched("password"));
       dispatch(setError(true));
+      return;
     }
 
     try {

@@ -32,15 +32,17 @@ export const UserPage = () => {
     }
   }, [dispatch]);
   if (error) {
-    <Box>
-      <Typography variant="h3">
-        We have encountered a problem fetching your data.
-      </Typography>
-      <Typography variant="body1">
-        Try refreshing the page and logging in again. If the issue persists
-        please contact us.
-      </Typography>
-    </Box>;
+    return (
+      <Box>
+        <Typography variant="h3">
+          We have encountered a problem fetching your data.
+        </Typography>
+        <Typography variant="body1">
+          Try refreshing the page and logging in again. If the issue persists
+          please contact us.
+        </Typography>
+      </Box>
+    );
   }
   return (
     <Box

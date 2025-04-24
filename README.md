@@ -10,7 +10,7 @@ Styled with Material Mui components, this responsive application has a fully acc
 
 ## 💫 Live application
 
-This application has been temporarily taken down and will be live again very soon. However, you can copy this repo url and use such sites as gitpod.io to view it without cloning. Alternatively, follow the instructions below.
+This application has been hosted on Netlify [here](https://portalauth.netlify.app/). The backend of this application has been hosted on a free tier for the purpose of this repo, the service will spin down from inactivity and can take up to 50 seconds to respond.
 
 ## 💻 Local Setup
 

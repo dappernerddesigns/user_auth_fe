@@ -1,7 +1,8 @@
-import { Box, Link as MuiLink, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser } from "../store/features/userSlice";
+import { resetLoginForm } from "../store/features/loginSlice";
 import { useNavigate } from "react-router";
 import Lottie from "lottie-react";
 import loadingDots from "../assets/loading.json";
@@ -13,19 +14,23 @@ export const UserPage = () => {
   const { username, loading, error, email, user_id } = useSelector(
     (state) => state.user
   );
-  const loggedInUser = useSelector((state) => state.loginForm.email);
-  if (loggedInUser === "") {
-    localStorage.removeItem("portal_token");
-  }
+  console.log(user_id);
   const token = localStorage.getItem("portal_token");
 
   useEffect(() => {
-    if (!token && loggedInUser === "") {
+    if (!token) {
       navigate("/");
     } else {
-      dispatch(fetchUser(loggedInUser));
+      try {
+        dispatch(fetchUser(user_id));
+      } catch (err) {
+        if (token) {
+          localStorage.removeItem("portal_token");
+        }
+        navigate("/");
+      }
     }
-  }, [dispatch, loggedInUser]);
+  }, [dispatch]);
   if (error) {
     <Box>
       <Typography variant="h3">

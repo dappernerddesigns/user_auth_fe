@@ -1,11 +1,17 @@
 import { Button, Stack, TextField, Box, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { setField, setTouched, setError } from "../store/features/loginSlice";
+import {
+  setEmail,
+  setPassword,
+  setTouched,
+  setError,
+  resetLoginForm,
+} from "../store/features/loginSlice";
 import { resetRegisterForm } from "../store/features/registrationFormSlice";
-
+import { setId } from "../store/features/userSlice";
 import { loginUser } from "../api";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import loadingDots from "../assets/loading.json";
 
@@ -14,32 +20,36 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const newUserEmail = useSelector((state) => state.signupForm.email);
-  const { email, password, error } = useSelector((state) => state.loginForm);
+  const { email, password, error, emailValid, passwordValid } = useSelector(
+    (state) => state.loginForm
+  );
 
-  if (newUserEmail && !email) {
-    dispatch(setField({ field: "email", value: newUserEmail }));
-  }
+  useEffect(() => {
+    dispatch(resetLoginForm());
+    dispatch(resetRegisterForm());
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ((email === "" && !newUserEmail) || password === "") {
+    if (!emailValid || !passwordValid) {
       dispatch(setTouched("email"));
       dispatch(setTouched("password"));
       dispatch(setError(true));
     }
+
     try {
       setIsLoading(true);
-      const token = await loginUser({
+      const { token, id } = await loginUser({
         email: email,
         plainTextPassword: password,
       });
-      dispatch(setField({ field: "password", value: "" }));
-      if (token) {
+      if (token && id) {
+        dispatch(setId(id));
         navigate("/profile");
-        dispatch(resetRegisterForm());
       }
     } catch (err) {
+      setIsLoading(false);
       dispatch(setError(true));
     }
   };
@@ -50,11 +60,13 @@ export const LoginForm = () => {
           variant="standard"
           id="emailInput"
           label="Email*"
-          value={newUserEmail ? newUserEmail : email}
+          value={email}
           onChange={(e) => {
-            if (loading) setIsLoading(!loading);
+            if (loading) {
+              setIsLoading((prevState) => !prevState);
+            }
             dispatch(setError(false));
-            dispatch(setField({ field: "email", value: e.target.value }));
+            dispatch(setEmail({ field: "email", value: e.target.value }));
           }}
           onBlur={() => dispatch(setTouched("email"))}
           error={error}
@@ -66,9 +78,11 @@ export const LoginForm = () => {
           type="password"
           value={password}
           onChange={(e) => {
-            if (loading) setIsLoading(!loading);
+            if (loading) {
+              setIsLoading((prevState) => !prevState);
+            }
             dispatch(setError(false));
-            dispatch(setField({ field: "password", value: e.target.value }));
+            dispatch(setPassword({ field: "password", value: e.target.value }));
           }}
           onBlur={() => {
             dispatch(setTouched("password"));

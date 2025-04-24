@@ -8,7 +8,6 @@ export const fetchUser = createAsyncThunk(
       const user = await getUserDetails(email);
       return user;
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err.response.data || err.msg);
     }
   }
@@ -17,7 +16,7 @@ const initialState = {
   username: "",
   email: "",
   user_id: "",
-  loading: true,
+  loading: false,
   error: null,
 };
 const userSlice = createSlice({
@@ -25,6 +24,9 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     clearUser: () => initialState,
+    setId: (state, action) => {
+      state.user_id = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -44,5 +46,5 @@ const userSlice = createSlice({
       });
   },
 });
-export const { clearUser } = userSlice.actions;
+export const { clearUser, setId } = userSlice.actions;
 export default userSlice.reducer;

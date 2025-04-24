@@ -12,9 +12,10 @@ import {
   setField,
   setTouched,
   setError,
+  resetRegisterForm,
 } from "../store/features/registrationFormSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { resetLoginForm } from "../store/features/loginSlice";
+
 import { createAccount } from "../api";
 import { useNavigate, Link as RouterLink } from "react-router";
 import Lottie from "lottie-react";
@@ -49,7 +50,7 @@ export const Register = () => {
     }
     try {
       setIsloading(true);
-      dispatch(resetLoginForm());
+
       const resourceExists = await createAccount({ username, email, password });
       if (resourceExists) {
         navigate("/login");

@@ -12,15 +12,15 @@ export const createAccount = async (userdetails) => {
 
 export const loginUser = async (userdetails) => {
   const {
-    data: { token },
+    data: { token, id },
   } = await usersApi.post("/users/login", userdetails);
   localStorage.setItem("portal_token", token);
-  return token;
+  return { token, id };
 };
 
-export const getUserDetails = async (email) => {
+export const getUserDetails = async (id) => {
   const token = localStorage.getItem("portal_token");
-  const { data } = await usersApi.get(`/users/${email}`, {
+  const { data } = await usersApi.get(`/users/${id}`, {
     headers: { authorization: `Bearer ${token}` },
   });
 

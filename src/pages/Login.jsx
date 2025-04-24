@@ -1,6 +1,6 @@
 import { Box, Link as MuiLink, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router";
-import { LoginForm } from "../components/LogIn";
+import { LoginForm } from "../components/LogInForm";
 export const Login = () => {
   return (
     <Box id="login">
